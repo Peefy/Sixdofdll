@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sixdofdll2010", "Sixdofdll2010\Sixdofdll2010.vcxproj", "{036BB3E1-D5B8-4865-938B-40D3C3774BC8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sixdofdll2010.Test", "Sixdofdll2010.Test\Sixdofdll2010.Test.vcxproj", "{8CA991AB-3C1F-4F35-82F5-054661411B02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{036BB3E1-D5B8-4865-938B-40D3C3774BC8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{036BB3E1-D5B8-4865-938B-40D3C3774BC8}.Debug|Win32.Build.0 = Debug|Win32
+		{036BB3E1-D5B8-4865-938B-40D3C3774BC8}.Release|Win32.ActiveCfg = Release|Win32
+		{036BB3E1-D5B8-4865-938B-40D3C3774BC8}.Release|Win32.Build.0 = Release|Win32
+		{8CA991AB-3C1F-4F35-82F5-054661411B02}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8CA991AB-3C1F-4F35-82F5-054661411B02}.Debug|Win32.Build.0 = Debug|Win32
+		{8CA991AB-3C1F-4F35-82F5-054661411B02}.Release|Win32.ActiveCfg = Release|Win32
+		{8CA991AB-3C1F-4F35-82F5-054661411B02}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
