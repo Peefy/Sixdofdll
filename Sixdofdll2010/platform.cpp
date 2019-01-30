@@ -162,7 +162,7 @@ void Platform::BuildLsMatrix(double yaw, double roll, double pitch)
 	LsMatrix[0][1] = sin(b) * cos(a) * cos(y) - cos(b) * sin(y);
 	LsMatrix[0][2] = cos(b) * sin(a) * cos(y) + sin(b) * sin(y);
 
-	LsMatrix[1][0] = cos(a) * sin(y);
+	LsMatrix[1][0] = cos(a) * sin(y);	
 	LsMatrix[1][1] = sin(b) * sin(a) * sin(y) + cos(b) * cos(y);
 	LsMatrix[1][2] = cos(b) * sin(a) * sin(y) - sin(b) * cos(y);
 
@@ -213,13 +213,22 @@ double * Platform::FromLengthToPose(double * lengths)
 	return this->poses;
 }
 
+/*
+* 洗出算法又称体感模拟算法,算法引入了经典滤波算法、惯性坐标转换、限制环节等，
+*/
 double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch)
 {
-    return nullptr;
+    return this->poses;
 }
 
+/*
+* 洗出算法又称体感模拟算法,算法引入了经典滤波算法、惯性坐标转换、限制环节等，
+*/
 double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
 						 double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed)
 {
-	return nullptr;
+	BuildLsMatrix(yaw, roll, pitch);
+	BuildTsMatrix(yaw, roll, pitch);
+
+	return this->poses;
 }
