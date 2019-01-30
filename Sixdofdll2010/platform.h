@@ -9,6 +9,8 @@
 #define INIT_LENGTH 0
 #define INIT_POSE 0
 
+#define MATRIX_DIMENSION 3
+
 class Point3D
 {
 public:
@@ -77,8 +79,9 @@ public:
     Point3D ZeroPoint;
     Point3D HingePositions[AXIS_COUNT];
     Point3D BottomPositions[AXIS_COUNT];
-    double ConversionMatrix[3][3];
-	double TsMatrix[3][3];
+    double ConversionMatrix[MATRIX_DIMENSION][MATRIX_DIMENSION];
+	double TsMatrix[MATRIX_DIMENSION][MATRIX_DIMENSION];
+	double LsMatrix[MATRIX_DIMENSION][MATRIX_DIMENSION];
     double AxisInitLength[AXIS_COUNT];
     double AxisDeltaLength[AXIS_COUNT];
 	void SetPlatformPara(double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
@@ -102,6 +105,7 @@ private:
     void PositonsInit();
     void BuildConversionMatrix(double yaw, double roll, double pitch);
 	void BuildTsMatrix(double yaw, double roll, double pitch);
+	void BuildLsMatrix(double yaw, double roll, double pitch);
     double CosineTheorem(double a, double b, double c);
 };
 

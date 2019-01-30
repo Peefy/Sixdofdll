@@ -139,17 +139,36 @@ void Platform::BuildTsMatrix(double yaw, double roll, double pitch)
 	double b = pitch;  //phi
 
 	TsMatrix[0][0] = 1;
-	TsMatrix[0][1] = -sin(y) * cos(a) + cos(y) * sin(b) * sin(a);
-	TsMatrix[0][2] = sin(y) * sin(a) + cos(y) * sin(b) * cos(a);
+	TsMatrix[0][1] = sin(b) * tan(a);
+	TsMatrix[0][2] = cos(b) * tan(a);
 
 	TsMatrix[1][0] = 0;
-	TsMatrix[1][1] = cos(y) * cos(a) + sin(y) * sin(b) * sin(a);
-	TsMatrix[1][2] = -cos(y) * sin(a) + sin(y) * sin(b) * cos(a);
+	TsMatrix[1][1] = cos(b);
+	TsMatrix[1][2] = -sin(b);
 
 	TsMatrix[2][0] = 0;
-	TsMatrix[2][1] = cos(b) * sin(a);
-	TsMatrix[2][2] = cos(b) * cos(a);
+	TsMatrix[2][1] = sin(b) * 1.0 / cos(a);
+	TsMatrix[2][2] = cos(b) * 1.0 / cos(a);
 
+}
+
+void Platform::BuildLsMatrix(double yaw, double roll, double pitch)
+{
+	double y = yaw;    //pothi
+	double a = roll;   //theta
+	double b = pitch;  //phi
+
+	LsMatrix[0][0] = cos(a) * cos(y);
+	LsMatrix[0][1] = sin(b) * cos(a) * cos(y) - cos(b) * sin(y);
+	LsMatrix[0][2] = cos(b) * sin(a) * cos(y) + sin(b) * sin(y);
+
+	LsMatrix[1][0] = cos(a) * sin(y);
+	LsMatrix[1][1] = sin(b) * sin(a) * sin(y) + cos(b) * cos(y);
+	LsMatrix[1][2] = cos(b) * sin(a) * sin(y) - sin(b) * cos(y);
+
+	LsMatrix[2][0] = -sin(a);
+	LsMatrix[2][1] = sin(b) * cos(a);
+	LsMatrix[2][2] = cos(b) * cos(a);
 }
 
 void Platform::BuildConversionMatrix(double yaw, double roll, double pitch)
