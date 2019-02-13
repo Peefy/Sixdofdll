@@ -8,7 +8,6 @@
 #include "MatrixOpreate.h"
 #include "NewtonSolve.h"
 
-
 Platform::Platform()
 {
 	PlatformParaInit();
@@ -233,11 +232,11 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	static double angleSpd_scale = 0.8;
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
-	double y = yaw;    //pothi
+	//double y = yaw;    //pothi
 	double a = roll;   //theta
 	double b = pitch;  //phi
 	double fAA[3] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
-	double wAA[3] = {a * angleSpd_scale, b * angleSpd_scale, y * angleSpd_scale};
+	double wAA[3] = {a * angleSpd_scale, b * angleSpd_scale, yaw * angleSpd_scale};
 	double f2[3];
 	double beta2[3];
 	MatrixMultiplyVector(LsMatrix, fAA, f2);  
