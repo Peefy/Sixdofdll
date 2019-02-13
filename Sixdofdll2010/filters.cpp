@@ -40,11 +40,11 @@ double Ztrans::Update(double now)
 	double out = 0;
 	input.push_front(now);
 	input.pop_back();
-	for (int i = 0;i < Order - 1;++i)
+	for (int i = 0; i < Order - 1; ++i)
 	{
 		out -= inner_dens[i + 1] * output[i];
 	}
-	for (int i = 0;i < Order;++i)
+	for (int i = 0; i < Order; ++i)
 	{
 		out += inner_nums[i] * input[i];
 	}
@@ -53,30 +53,39 @@ double Ztrans::Update(double now)
 	return out;
 }
 
-AccHighPassFilter::AccHighPassFilter(double dT) : Ztrans(dT, 1)
+AccHighPassFilter::AccHighPassFilter(double dT) : Ztrans(dT, 2)
 {
-	double nums[2] = {0, 0.01};
-	double dens[2] = {1, -1};
+	//double nums[3] = {1, -2, 0.9996};
+	//double dens[3] = {1, -1.93, 0.9305};
+	double nums[3] = {1, -1.886, 0.8856};
+	double dens[3] = {1, -1.052, 0.2369};
 	SetNumsAndDens(nums, dens);
 }
 
-AccLowPassFilter::AccLowPassFilter(double dT) : Ztrans(dT, 1)
+AccIntZtrans::AccIntZtrans(double dT) : Ztrans(dT, 2)
 {
-	double nums[2] = {0, 0.01};
-	double dens[2] = {1, -1};
+	//double nums[3] = {0, 4.983e-5, 4.967e-5};
+	//double dens[3] = {1, -1.99, 0.99};
+	double nums[3] = {0, 0.01873, 0.01752};
+	double dens[3] = {1, -1.819, 0.8187};
 	SetNumsAndDens(nums, dens);
 }
 
-AccIntZtrans::AccIntZtrans(double dT) : Ztrans(dT, 1)
+AccLowPassFilter::AccLowPassFilter(double dT) : Ztrans(dT, 2)
 {
-	double nums[2] = {0, 0.01};
-	double dens[2] = {1, -1};
+	//double nums[3] = {0, 0.0003073, 0.0003023};
+	//double dens[3] = {1, -1.951, 0.9512};
+	double nums[3] = {0, 0.0902, 0.06461};
+	double dens[3] = {1, -1.213, 0.3679};
 	SetNumsAndDens(nums, dens);
 }
 
-AngleSpeedHighPassFilter::AngleSpeedHighPassFilter(double dT) : Ztrans(dT, 1)
+AngleSpeedHighPassFilterAndInt::AngleSpeedHighPassFilterAndInt(double dT) : Ztrans(dT, 2)
 {
-	double nums[2] = {0, 0.01};
-	double dens[2] = {1, -1};
+	//double nums[3] = {0, 0.009753, -0.009753};
+	//double dens[3] = {1, -1.951, 0.9512};
+	double nums[3] = {0, 0.1213, -0.1213};
+	double dens[3] = {1, -1.213, 0.3679};
 	SetNumsAndDens(nums, dens);
 }
+

@@ -11,7 +11,8 @@ using namespace std;
 #define LIMITER(x, min, max)     (((x)<(min) ? (min) : ( (x)>(max) ? (max):(x) )))
 
 #define MAX_ORDER 10
-#define INIT_DT   0.01
+//#define INIT_DT   0.01
+#define INIT_DT   0.2
 
 class Ztrans
 {
@@ -40,16 +41,6 @@ private:
 
 };
 
-class AccLowPassFilter : public Ztrans
-{
-public:
-	AccLowPassFilter(double dT = INIT_DT); 
-	~AccLowPassFilter() {};
-
-private:
-
-};
-
 class AccIntZtrans : public Ztrans
 {
 public:
@@ -60,15 +51,27 @@ private:
 
 };
 
-class AngleSpeedHighPassFilter : public Ztrans
+class AccLowPassFilter : public Ztrans
 {
 public:
-	AngleSpeedHighPassFilter(double dT = INIT_DT); 
-	~AngleSpeedHighPassFilter() {};
+	AccLowPassFilter(double dT = INIT_DT); 
+	~AccLowPassFilter() {};
 
 private:
 
 };
+
+class AngleSpeedHighPassFilterAndInt : public Ztrans
+{
+public:
+	AngleSpeedHighPassFilterAndInt(double dT = INIT_DT); 
+	~AngleSpeedHighPassFilterAndInt() {};
+
+private:
+
+};
+
+
 
 #endif // !_FILTERS_H_
 

@@ -217,35 +217,45 @@ double * Platform::FromLengthToPose(double * lengths)
 /*
 * 洗出算法又称体感模拟算法,算法引入了经典滤波算法、惯性坐标转换、限制环节等，
 */
-double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch)
-{
-    return this->poses;
-}
-
-/*
-* 洗出算法又称体感模拟算法,算法引入了经典滤波算法、惯性坐标转换、限制环节等，
-*/
 double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
 						 double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed)
 {
-	static double acc_scale = 0.8;
-	static double angleSpd_scale = 0.8;
+	static double acc_scale = 1.0;
+	static double angleSpd_scale = 1.0;
+	static double coor_turn_gain = 0.1;
+	static AccHighPassFilter accHighPassFilters[ACC_NUM];
+	static AccIntZtrans accIntZtrans[ACC_NUM];
+	static AccLowPassFilter accLowPassFilter[ACC_NUM];
+	static AngleSpeedHighPassFilterAndInt angleHpfAndInt[ANGLE_SPEED_NUM];
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
 	//double y = yaw;    //pothi
 	double a = roll;   //theta
 	double b = pitch;  //phi
-	double fAA[3] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
-	double wAA[3] = {a * angleSpd_scale, b * angleSpd_scale, yaw * angleSpd_scale};
-	double f2[3];
-	double beta2[3];
+	double fAA[ACC_NUM] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
+	double wAA[ANGLE_SPEED_NUM] = {a * angleSpd_scale, b * angleSpd_scale, yaw * angleSpd_scale};
+	double f2[ACC_NUM];
+	double flow[ACC_NUM];
+	double beta2[ANGLE_SPEED_NUM];
+	double betahigh[ANGLE_SPEED_NUM];
+	double betalow[ANGLE_SPEED_NUM];
+	double ahigh[ACC_NUM];
+	double betaS[ANGLE_SPEED_NUM];
 	MatrixMultiplyVector(LsMatrix, fAA, f2);  
 	MatrixMultiplyVector(TsMatrix, wAA, beta2);
 	double a2[3] = {0};
-	for (int i = 0; i < ACC_NUM;++i)
+	memcpy(a2, f2, sizeof(double) * ACC_NUM);
+#if IS_ADD_EARTH_G
+	a2[ACC_NUM - 1] = f2[ACC_NUM - 1] + EARTH_G;
+#endif
+	for (int i = 0; i < ACC_NUM; ++i)
 	{
-		a2[i] = f2[i] + EARTH_G;
+		ahigh[i] = accHighPassFilters[i].Update(a2[i]);
+		poses[i] = accIntZtrans[i].Update(ahigh[i]);
+		flow[i] = accLowPassFilter[i].Update(fAA[i]);
+		betalow[i] = LIMITER(flow[i] * coor_turn_gain, -ANGLE_VEL_UP_RANGE, +ANGLE_VEL_UP_RANGE);
+		betaS[i] = betalow[i] + angleHpfAndInt->Update(beta2[i]);
 	}
-
-	return this->poses;
+	memcpy(poses + ACC_NUM, betaS, sizeof(double) * ANGLE_SPEED_NUM);
+	return poses;
 }
