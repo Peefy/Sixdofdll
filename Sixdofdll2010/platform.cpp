@@ -4,8 +4,10 @@
 #include <memory.h>
 
 #include "platform.h"
+#include "filters.h"
 #include "MatrixOpreate.h"
 #include "NewtonSolve.h"
+
 
 Platform::Platform()
 {
@@ -227,8 +229,24 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
 						 double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed)
 {
+	static double acc_scale = 0.8;
+	static double angleSpd_scale = 0.8;
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
+	double y = yaw;    //pothi
+	double a = roll;   //theta
+	double b = pitch;  //phi
+	double fAA[3] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
+	double wAA[3] = {a * angleSpd_scale, b * angleSpd_scale, y * angleSpd_scale};
+	double f2[3];
+	double beta2[3];
+	MatrixMultiplyVector(LsMatrix, fAA, f2);  
+	MatrixMultiplyVector(TsMatrix, wAA, beta2);
+	double a2[3] = {0};
+	for (int i = 0; i < ACC_NUM;++i)
+	{
+		a2[i] = f2[i] + EARTH_G;
+	}
 
 	return this->poses;
 }

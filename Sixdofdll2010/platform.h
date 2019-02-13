@@ -3,6 +3,7 @@
 #include <math.h>
 #include "config.h"
 
+// 运动学正、反解算
 #define LENGTH_COUNT 6
 #define POSE_COUNT 6
 
@@ -10,6 +11,15 @@
 #define INIT_POSE 0
 
 #define MATRIX_DIMENSION 3
+
+// 洗出算法
+
+#define ACC_NUM          3       // 加速度的数量
+#define ANGLE_SPEED_NUM  3       // 角速度的数量
+#define EARTH_G          9.8     // 重力加速度
+
+#define ACC_UP_RANGE        (0.02 * EARTH_G) //单位 m/s^2 
+#define ANGLE_VEL_UP_RANGE  3 // m/s^2
 
 class Point3D
 {
