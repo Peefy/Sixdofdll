@@ -14,6 +14,8 @@ using namespace std;
 //#define INIT_DT   0.01
 #define INIT_DT   0.047
 
+double RateLimiter(double dataIn, double risingSlewRate, double fallingSlewRate, double dT);
+
 class Ztrans
 {
 public:

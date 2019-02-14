@@ -2,9 +2,23 @@
 #include "stdafx.h"
 #include "filters.h"
 
-double RateLimiter(double datain)
+double RateLimiter(double dataIn, double risingSlewRate, double fallingSlewRate, double dT)
 {
-	return datain;
+	static double lastOut = dataIn;
+	if (dT == 0)
+		return dataIn;
+	double rate = (dataIn - lastOut) / dT;
+	double out = dataIn;
+	if (rate >= risingSlewRate)
+	{
+		out = risingSlewRate * dT + lastOut;
+	}
+	else if (rate <= fallingSlewRate)
+	{
+		out = fallingSlewRate * dT + lastOut;
+	}
+	lastOut = out;
+	return dataIn;
 }
 
 Ztrans::Ztrans(double dT, int order)
