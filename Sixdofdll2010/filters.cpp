@@ -57,8 +57,8 @@ AccHighPassFilter::AccHighPassFilter(double dT) : Ztrans(dT, 2)
 {
 	//double nums[3] = {1, -2, 0.9996};
 	//double dens[3] = {1, -1.93, 0.9305};
-	double nums[3] = {1, -1.886, 0.8856};
-	double dens[3] = {1, -1.052, 0.2369};
+	double nums[3] = {1, -2, 0.9997};
+	double dens[3] = {1, -1.945, 0.9452};
 	SetNumsAndDens(nums, dens);
 }
 
@@ -66,8 +66,8 @@ AccIntZtrans::AccIntZtrans(double dT) : Ztrans(dT, 2)
 {
 	//double nums[3] = {0, 4.983e-5, 4.967e-5};
 	//double dens[3] = {1, -1.99, 0.99};
-	double nums[3] = {0, 0.01873, 0.01752};
-	double dens[3] = {1, -1.819, 0.8187};
+	double nums[3] = {0, 0.001087, 0.00107};
+	double dens[3] = {1, -1.954, 0.9541};
 	SetNumsAndDens(nums, dens);
 }
 
@@ -75,8 +75,8 @@ AccLowPassFilter::AccLowPassFilter(double dT) : Ztrans(dT, 2)
 {
 	//double nums[3] = {0, 0.0003073, 0.0003023};
 	//double dens[3] = {1, -1.951, 0.9512};
-	double nums[3] = {0, 0.0902, 0.06461};
-	double dens[3] = {1, -1.213, 0.3679};
+	double nums[3] = {0, 0.0002718, 0.0002676};
+	double dens[3] = {1, -1.954, 0.9541};
 	SetNumsAndDens(nums, dens);
 }
 
@@ -84,8 +84,8 @@ AngleSpeedHighPassFilterAndInt::AngleSpeedHighPassFilterAndInt(double dT) : Ztra
 {
 	//double nums[3] = {0, 0.009753, -0.009753};
 	//double dens[3] = {1, -1.951, 0.9512};
-	double nums[3] = {0, 0.1213, -0.1213};
-	double dens[3] = {1, -1.213, 0.3679};
+	double nums[3] = {0, 0.04591, -0.04591};
+	double dens[3] = {1, -1.954, 0.9541};
 	SetNumsAndDens(nums, dens);
 }
 
