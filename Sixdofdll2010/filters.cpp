@@ -2,6 +2,11 @@
 #include "stdafx.h"
 #include "filters.h"
 
+double RateLimiter(double datain)
+{
+	return datain;
+}
+
 Ztrans::Ztrans(double dT, int order)
 {
 	this->dT = dT;
