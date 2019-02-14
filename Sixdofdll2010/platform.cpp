@@ -135,7 +135,7 @@ void Platform::PositonsInit()
 
 void Platform::BuildTsMatrix(double yaw, double roll, double pitch)
 {
-	double y = yaw;    //pothi
+	double y = yaw;    //psi
 	double a = roll;   //theta
 	double b = pitch;  //phi
 
@@ -155,7 +155,7 @@ void Platform::BuildTsMatrix(double yaw, double roll, double pitch)
 
 void Platform::BuildLsMatrix(double yaw, double roll, double pitch)
 {
-	double y = yaw;    //pothi
+	double y = yaw;    //psi
 	double a = roll;   //theta
 	double b = pitch;  //phi
 
@@ -174,7 +174,7 @@ void Platform::BuildLsMatrix(double yaw, double roll, double pitch)
 
 void Platform::BuildConversionMatrix(double yaw, double roll, double pitch)
 {
-	double y = yaw;    //pothi
+	double y = yaw;    //psi
 	double a = roll;   //theta
 	double b = pitch;  //phi
 
@@ -229,7 +229,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	static AngleSpeedHighPassFilterAndInt angleHpfAndInt[ANGLE_SPEED_NUM];
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
-	//double y = yaw;    //pothi
+	//double y = yaw;    //psi
 	double a = roll;   //theta
 	double b = pitch;  //phi
 	double fAA[ACC_NUM] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
