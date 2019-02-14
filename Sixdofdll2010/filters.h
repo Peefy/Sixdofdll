@@ -12,7 +12,7 @@ using namespace std;
 
 #define MAX_ORDER 10
 //#define INIT_DT   0.01
-#define INIT_DT   0.2
+#define INIT_DT   0.047
 
 class Ztrans
 {
