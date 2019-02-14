@@ -181,6 +181,10 @@ SIXDOFDLL2010_API double* WashOutFiltering(double x, double y, double z,
 											double xacc, double yacc, double zacc, 
 											double rollSpeed, double yawSpeed, double pitchSpeed)
 {
+	// deg 2 rad
+	roll = roll * pi / 180.0;
+	yaw = yaw * pi / 180.0;
+	pitch = pitch * pi / 180.0;
 	return platform.WashOutFiltering(x, y, z, 
 		roll, yaw, pitch,
 		xacc, yacc, zacc, 
