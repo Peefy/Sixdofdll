@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include "config.h"
+#include "filters.h"
 
 // 运动学正、反解算
 
@@ -35,6 +36,8 @@
 
 // 角速度限制幅度
 #define ANGLE_VEL_UP_RANGE  3 // m/s^2
+
+#define WASHOUT_FILTER_ORDER_PLUS_ONE 3
 
 // 三维坐标
 class Point3D
@@ -153,5 +156,12 @@ private:
 	void BuildTsMatrix(double yaw, double roll, double pitch);
 	void BuildLsMatrix(double yaw, double roll, double pitch);
     double CosineTheorem(double a, double b, double c);
+protected:
+	AccHighPassFilter accHighPassFilters[ACC_NUM];
+	AccIntZtrans accIntZtrans[ACC_NUM];
+	AccLowPassFilter accLowPassFilter[ACC_NUM];
+	AngleSpeedHighPassFilterAndInt angleHpfAndInt[ANGLE_SPEED_NUM];
+	double nums[WASHOUT_FILTER_ORDER_PLUS_ONE];
+	double dens[WASHOUT_FILTER_ORDER_PLUS_ONE];
 };
 

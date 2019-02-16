@@ -25,14 +25,16 @@ public:
 	Ztrans(double dT, int order, double* nums, double* dens);
 	Ztrans(double dT, int order);
 	~Ztrans() {};
-	double dT;
 	int Order;
+	void SetSampleTime(double sampleTime);
 	double Update(double now);
 	void SetNumsAndDensZtrans(double* nums, double* dens);
 	void SetNumsAndDensLaplace(double* nums, double* dens, double fs);
 	void Bilinear(PARA_IN double* b, PARA_IN double* a, double fs, int dimensions, 
 		PARA_OUT double* bprimes, PARA_OUT double* aprimes);
 private:
+	double dT;
+	double fs;
 	deque<double> input;
 	deque<double> output;
 	double inner_nums[MAX_ORDER];

@@ -48,6 +48,7 @@ int comb(int m, int n)
 Ztrans::Ztrans(double dT, int order)
 {
 	this->dT = dT;
+	this->fs = 1.0 / dT; 
 	Order = order + 1;
 	for (int i = 0; i < Order; i++)
 	{
@@ -125,6 +126,12 @@ void Ztrans::Bilinear(PARA_IN double* b, PARA_IN double* a, double fs, int dimen
 		}
 		aprimes[j] = val;
 	}
+}
+
+void Ztrans::SetSampleTime(double sampleTime)
+{
+	dT = sampleTime;
+	fs = 1.0 / (double)dT;
 }
 
 double Ztrans::Update(double now)

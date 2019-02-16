@@ -4,13 +4,14 @@
 #include <memory.h>
 
 #include "platform.h"
-#include "filters.h"
+
 #include "MatrixOpreate.h"
 #include "NewtonSolve.h"
 
 Platform::Platform()
 {
 	PlatformParaInit();
+	WashOutFilterParaInit();
     PositonsInit();
     AxisInit();
 }
@@ -40,6 +41,32 @@ void Platform::SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpf
 	LpfAccWn = lpfAccWn;
 	HpfAngleSpdWn = hpfAngleSpdWn;
 	SampleTime = sampleTime;
+
+	for (int i = 0; i < ACC_NUM; ++i)
+	{
+		accHighPassFilters[i].SetSampleTime(SampleTime);
+		accIntZtrans[i].SetSampleTime(SampleTime);
+		accLowPassFilter[i].SetSampleTime(SampleTime);
+		angleHpfAndInt[i].SetSampleTime(SampleTime);
+
+		nums[0] = 1; nums[1] = 0; nums[2] = 0;
+		dens[0] = 1; dens[1] = 2 * 1 * hpfAccWn; dens[2] = hpfAccWn * hpfAccWn;
+		accHighPassFilters[i].SetNumsAndDensLaplace(nums, dens, 1.0 / sampleTime);
+
+		nums[0] = 0; nums[1] = 0; nums[2] = 1;
+		dens[0] = 1; dens[1] = hpfAccWn; dens[2] = 0;
+		accIntZtrans[i].SetNumsAndDensLaplace(nums, dens, 1.0 / sampleTime);
+
+		nums[0] = 0; nums[1] = 0; nums[2] = lpfAccWn * lpfAccWn;
+		dens[0] = 1; dens[1] = 2 * 1 * lpfAccWn; dens[2] = lpfAccWn * lpfAccWn;
+		accLowPassFilter[i].SetNumsAndDensLaplace(nums, dens, 1.0 / sampleTime);
+
+		nums[0] = 0; nums[1] = 1; nums[2] = 0;
+		dens[0] = 1; dens[1] = 2 * 1 * hpfAngleSpdWn; dens[2] = hpfAngleSpdWn * hpfAngleSpdWn;
+		angleHpfAndInt[i].SetNumsAndDensLaplace(nums, dens, 1.0 / sampleTime);
+
+	}
+
 }
 
 double* Platform::Control(double x, double y, double z, double roll, double yaw, double pitch)
@@ -239,10 +266,6 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	static double acc_scale = 1.0;
 	static double angleSpd_scale = 1.0;
 	static double coor_turn_gain = 0.1;
-	static AccHighPassFilter accHighPassFilters[ACC_NUM];
-	static AccIntZtrans accIntZtrans[ACC_NUM];
-	static AccLowPassFilter accLowPassFilter[ACC_NUM];
-	static AngleSpeedHighPassFilterAndInt angleHpfAndInt[ANGLE_SPEED_NUM];
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
 	//double y = yaw;    //psi
