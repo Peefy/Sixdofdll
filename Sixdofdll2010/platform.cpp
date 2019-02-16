@@ -293,7 +293,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 		poses[i] = accIntZtrans[i].Update(ahigh[i]) * 1000.0; //±ä³Émm
 		flow[i] = accLowPassFilter[i].Update(fAA[i]);
 		betalow[i] = LIMITER(flow[i] * coor_turn_gain, -ANGLE_VEL_UP_RANGE, +ANGLE_VEL_UP_RANGE);
-		betaS[i] = betalow[i] + angleHpfAndInt->Update(beta2[i]);
+		betaS[i] = betalow[i] + angleHpfAndInt[i].Update(beta2[i]);
 	}
 	memcpy(poses + ACC_NUM, betaS, sizeof(double) * ANGLE_SPEED_NUM);
 	return poses;
