@@ -34,11 +34,12 @@ void Platform::SetPlatformPara(double planeAboveHingeLength, double planeAboveBo
 	AxisInit();
 }
 
-void Platform::SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn)
+void Platform::SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn, double sampleTime)
 {
 	HpfAccWn = hpfAccWn;
 	LpfAccWn = lpfAccWn;
 	HpfAngleSpdWn = hpfAngleSpdWn;
+	SampleTime = sampleTime;
 }
 
 double* Platform::Control(double x, double y, double z, double roll, double yaw, double pitch)
@@ -73,6 +74,7 @@ void Platform::WashOutFilterParaInit()
 	HpfAccWn = 3;
 	LpfAccWn = 2.5;
 	HpfAngleSpdWn = 2.5;
+	SampleTime = INIT_DT;
 }
 
 void Platform::AxisInit()

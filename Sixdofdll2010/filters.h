@@ -14,6 +14,9 @@ using namespace std;
 //#define INIT_DT   0.01
 #define INIT_DT   0.047
 
+#define PARA_IN
+#define PARA_OUT
+
 double RateLimiter(double dataIn, double risingSlewRate, double fallingSlewRate, double dT);
 
 class Ztrans
@@ -25,7 +28,10 @@ public:
 	double dT;
 	int Order;
 	double Update(double now);
-	void SetNumsAndDens(double* nums, double* dens);
+	void SetNumsAndDensZtrans(double* nums, double* dens);
+	void SetNumsAndDensLaplace(double* nums, double* dens, double fs);
+	void Bilinear(PARA_IN double* b, PARA_IN double* a, double fs, int dimensions, 
+		PARA_OUT double* bprimes, PARA_OUT double* aprimes);
 private:
 	deque<double> input;
 	deque<double> output;

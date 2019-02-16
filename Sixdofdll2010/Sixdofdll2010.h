@@ -133,6 +133,18 @@ SIXDOFDLL2010_API double* WashOutFiltering(double x, double y, double z,
 										   double xacc, double yacc, double zacc, 
 										   double rollSpeed, double yawSpeed, double pitchSpeed);
 
+/*
+设置 六自由度平台的洗出算法的参数
+@para
+hpfAccWn : 线加速度高通滤波器截止频率
+lpfAccWn : 线加速度低通滤波器截止频率
+hpfAngleSpdWn : 角速度低通滤波器截止频率
+@return
+null
+*/
+SIXDOFDLL2010_API void SetWashOutFilterParaSetWashOutFilterPara(double hpfAccWn, 
+					double lpfAccWn, double hpfAngleSpdWn, double sampleTime);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

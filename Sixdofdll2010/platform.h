@@ -120,7 +120,7 @@ public:
     double AxisDeltaLength[AXIS_COUNT];
 	void SetPlatformPara(double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
 		double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom);
-	void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn);
+	void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn, double sampleTime);
     double* Control(double x, double y, double z, double roll, double yaw, double pitch);
     double* FromLengthToPose(double * lengths);
 	double* WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
@@ -144,6 +144,7 @@ private:
 	double HpfAccWn;
 	double LpfAccWn;
 	double HpfAngleSpdWn;
+	double SampleTime;
 	void PlatformParaInit();
 	void WashOutFilterParaInit();
     void AxisInit();

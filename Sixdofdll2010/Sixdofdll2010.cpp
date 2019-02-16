@@ -200,7 +200,7 @@ hpfAngleSpdWn : ½ÇËÙ¶ÈµÍÍ¨ÂË²¨Æ÷½ØÖ¹ÆµÂÊ
 @return
 null
 */
-SIXDOFDLL2010_API void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn)
+SIXDOFDLL2010_API void SetWashOutFilterParaSetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn, double sampleTime)
 {
-	platform.SetWashOutFilterPara(hpfAccWn, lpfAccWn, hpfAngleSpdWn);
+	platform.SetWashOutFilterPara(hpfAccWn, lpfAccWn, hpfAngleSpdWn, sampleTime);
 }
