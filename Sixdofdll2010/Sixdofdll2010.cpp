@@ -154,7 +154,7 @@ SIXDOFDLL2010_API void SetPlatformPara(double planeAboveHingeLength, double plan
 }
 
 /*
-设置 六自由度平台的洗出算法
+六自由度平台的洗出算法
 @para
 x : x轴的位移 mm
 y : y轴的位移 mm
@@ -189,4 +189,18 @@ SIXDOFDLL2010_API double* WashOutFiltering(double x, double y, double z,
 		roll, yaw, pitch,
 		xacc, yacc, zacc, 
 		rollSpeed, yawSpeed, pitchSpeed);
+}
+
+/*
+设置 六自由度平台的洗出算法的参数
+@para
+hpfAccWn : 线加速度高通滤波器截止频率
+lpfAccWn : 线加速度低通滤波器截止频率
+hpfAngleSpdWn : 角速度低通滤波器截止频率
+@return
+null
+*/
+SIXDOFDLL2010_API void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn)
+{
+	platform.SetWashOutFilterPara(hpfAccWn, lpfAccWn, hpfAngleSpdWn);
 }

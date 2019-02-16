@@ -34,6 +34,13 @@ void Platform::SetPlatformPara(double planeAboveHingeLength, double planeAboveBo
 	AxisInit();
 }
 
+void Platform::SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn)
+{
+	HpfAccWn = hpfAccWn;
+	LpfAccWn = lpfAccWn;
+	HpfAngleSpdWn = hpfAngleSpdWn;
+}
+
 double* Platform::Control(double x, double y, double z, double roll, double yaw, double pitch)
 {
     BuildConversionMatrix(yaw, roll, pitch);
@@ -59,6 +66,13 @@ void Platform::PlatformParaInit()
 	CircleBottomRadius = 840;
 	DistanceBetweenHingeTop = 190;
 	DistanceBetweenHingeBottom = 190;
+}
+
+void Platform::WashOutFilterParaInit()
+{
+	HpfAccWn = 3;
+	LpfAccWn = 2.5;
+	HpfAngleSpdWn = 2.5;
 }
 
 void Platform::AxisInit()

@@ -120,6 +120,7 @@ public:
     double AxisDeltaLength[AXIS_COUNT];
 	void SetPlatformPara(double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
 		double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom);
+	void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn);
     double* Control(double x, double y, double z, double roll, double yaw, double pitch);
     double* FromLengthToPose(double * lengths);
 	double* WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
@@ -140,7 +141,11 @@ private:
 	double PlaneAboveHingeLength;
 	// 上平面到下铰支座中心的垂直距离
 	double PlaneAboveBottomLength;
+	double HpfAccWn;
+	double LpfAccWn;
+	double HpfAngleSpdWn;
 	void PlatformParaInit();
+	void WashOutFilterParaInit();
     void AxisInit();
     void PositonsInit();
     void BuildConversionMatrix(double yaw, double roll, double pitch);
