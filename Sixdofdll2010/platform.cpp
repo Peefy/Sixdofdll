@@ -257,6 +257,8 @@ double * Platform::FromLengthToPose(double * lengths)
 	return this->poses;
 }
 
+
+
 /*
 * 洗出算法又称体感模拟算法,算法引入了经典滤波算法、惯性坐标转换、限制环节等，
 */
@@ -280,8 +282,13 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	double betalow[ANGLE_SPEED_NUM];
 	double ahigh[ACC_NUM];
 	double betaS[ANGLE_SPEED_NUM];
+#if IS_USE_TRANS_MATRIX
 	MatrixMultiplyVector(LsMatrix, fAA, f2);  
 	MatrixMultiplyVector(TsMatrix, wAA, beta2);
+#else
+	memcpy(f2, fAA, sizeof(double) * ACC_NUM);
+	memcpy(beta2, wAA, sizeof(double) * ACC_NUM);
+#endif
 	double a2[3] = {0};
 	memcpy(a2, f2, sizeof(double) * ACC_NUM);
 #if IS_ADD_EARTH_G

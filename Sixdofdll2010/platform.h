@@ -31,6 +31,9 @@
 // 比力传感器是否考虑重力加速度
 #define IS_ADD_EARTH_G   0
 
+// 洗出算法是否使用传递矩阵
+#define IS_USE_TRANS_MATRIX 0
+
 // 加速度限幅
 #define ACC_UP_RANGE        (0.02 * EARTH_G) //单位 m/s^2 
 

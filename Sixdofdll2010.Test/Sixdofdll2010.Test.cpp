@@ -44,7 +44,6 @@ int main()
 		printf("the %d poses is %f \r\n", i, poses[i]);
 	}
 	
-	
 	double i = 0;
 	while (i < 3)
 	{
