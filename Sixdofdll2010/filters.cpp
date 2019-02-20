@@ -126,6 +126,12 @@ void Ztrans::Bilinear(PARA_IN double* b, PARA_IN double* a, double fs, int dimen
 		}
 		aprimes[j] = val;
 	}
+	double div = aprimes[0];
+	for (int i = 0;i < dimensions;++i)
+	{
+		bprimes[i] /= div;
+		aprimes[i] /= div;
+	}
 }
 
 void Ztrans::SetSampleTime(double sampleTime)
