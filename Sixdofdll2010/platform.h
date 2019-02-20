@@ -34,6 +34,9 @@
 // 洗出算法是否使用传递矩阵
 #define IS_USE_TRANS_MATRIX 0
 
+// 是否增加协调转弯
+#define IS_ADD_COOR_TURN_GAIN 0
+
 // 加速度限幅
 #define ACC_UP_RANGE        (0.02 * EARTH_G) //单位 m/s^2 
 
