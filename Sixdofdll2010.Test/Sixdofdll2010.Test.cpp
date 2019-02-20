@@ -43,8 +43,10 @@ int main()
 	{
 		printf("the %d poses is %f \r\n", i, poses[i]);
 	}
+	SetWashOutFilterPara(3.0, 2.0, 2.0, 0.047);
+
 	double i = 0;
-	while (true)
+	while (i < 3)
 	{
 		i += 0.005;
 		auto angle = 30 * sin(i);

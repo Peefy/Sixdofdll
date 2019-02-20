@@ -200,7 +200,7 @@ hpfAngleSpdWn : 角速度低通滤波器截止频率
 @return
 null
 */
-SIXDOFDLL2010_API void SetWashOutFilterParaSetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn, double sampleTime)
+SIXDOFDLL2010_API void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn, double sampleTime)
 {
 	platform.SetWashOutFilterPara(hpfAccWn, lpfAccWn, hpfAngleSpdWn, sampleTime);
 }
