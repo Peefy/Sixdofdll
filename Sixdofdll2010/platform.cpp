@@ -265,7 +265,7 @@ double * Platform::FromLengthToPose(double * lengths)
 double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
 						 double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed)
 {
-	static double acc_scale = 1.0;
+	static double acc_scale = 0.1;
 	static double angleSpd_scale = 1.0;
 	static double coor_turn_gain = 0.1;
 	BuildLsMatrix(yaw, roll, pitch);
@@ -274,7 +274,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	double a = roll;   //theta
 	double b = pitch;  //phi
 	double fAA[ACC_NUM] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
-	double wAA[ANGLE_SPEED_NUM] = {a * angleSpd_scale, b * angleSpd_scale, yaw * angleSpd_scale};
+	double wAA[ANGLE_SPEED_NUM] = {rollSpeed * angleSpd_scale, pitchSpeed * angleSpd_scale, yawSpeed * angleSpd_scale};
 	double f2[ACC_NUM];
 	double flow[ACC_NUM];
 	double beta2[ANGLE_SPEED_NUM];
@@ -299,7 +299,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 		ahigh[i] = accHighPassFilters[i].Update(a2[i]);
 		poses[i] = accIntZtrans[i].Update(ahigh[i]) * 1000.0; //±ä³Émm
 		flow[i] = accLowPassFilter[i].Update(fAA[i]);
-		betalow[i] = LIMITER(flow[i] * coor_turn_gain, -ANGLE_VEL_UP_RANGE, +ANGLE_VEL_UP_RANGE);
+		betalow[i] = LIMITER(flow[i] * coor_turn_gain * 180.0 / pi, -ANGLE_VEL_UP_RANGE, +ANGLE_VEL_UP_RANGE);
 #if IS_ADD_COOR_TURN_GAIN
 		betaS[i] = betalow[i] + angleHpfAndInt[i].Update(beta2[i]);
 #else

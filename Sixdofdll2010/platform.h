@@ -32,7 +32,7 @@
 #define IS_ADD_EARTH_G   0
 
 // 洗出算法是否使用传递矩阵
-#define IS_USE_TRANS_MATRIX 0
+#define IS_USE_TRANS_MATRIX 1
 
 // 是否增加协调转弯
 #define IS_ADD_COOR_TURN_GAIN 0
