@@ -35,7 +35,7 @@
 #define IS_USE_TRANS_MATRIX 1
 
 // 是否增加协调转弯
-#define IS_ADD_COOR_TURN_GAIN 1
+#define IS_ADD_COOR_TURN_GAIN 0
 
 // 加速度限幅
 #define ACC_UP_RANGE        (0.02 * EARTH_G) //单位 m/s^2 

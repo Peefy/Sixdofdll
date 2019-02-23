@@ -98,9 +98,9 @@ void Platform::PlatformParaInit()
 
 void Platform::WashOutFilterParaInit()
 {
-	HpfAccWn = 1.5;
-	LpfAccWn = 1.0;
-	HpfAngleSpdWn = 1.0;
+	HpfAccWn = 1.0;
+	LpfAccWn = 0.5;
+	HpfAngleSpdWn = 0.5;
 	SampleTime = INIT_DT;
 }
 
@@ -266,7 +266,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 						 double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed)
 {
 	static double acc_scale = 0.1;
-	static double angleSpd_scale = 1.0;
+	static double angleSpd_scale = 10.0;
 	static double coor_turn_gain = 0.1;
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
