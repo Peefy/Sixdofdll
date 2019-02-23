@@ -265,7 +265,7 @@ double * Platform::FromLengthToPose(double * lengths)
 double * Platform::WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
 						 double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed)
 {
-	static double acc_scale = 0.1;
+	static double acc_scale = 0.01;
 	static double angleSpd_scale = 10.0;
 	static double coor_turn_gain = 0.1;
 	BuildLsMatrix(yaw, roll, pitch);
