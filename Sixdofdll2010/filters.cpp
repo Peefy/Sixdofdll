@@ -23,13 +23,13 @@ double RateLimiter(double dataIn, double risingSlewRate, double fallingSlewRate,
 
 int fac(int m)
 {
-	if (m==1||m==0)
+	if (m == 1 || m == 0)
 	{
 		return 1;
 	}
 	else
 	{
-		return fac(m - 1)*m;
+		return fac(m - 1) * m;
 	}
 }
 
@@ -41,7 +41,7 @@ int comb(int m, int n)
 	}
 	else
 	{
-		return fac(m) / (fac(n)*fac(m-n));    //调用递归运算
+		return fac(m) / (fac(n) * fac(m - n));    //调用递归运算
 	}
 }
 

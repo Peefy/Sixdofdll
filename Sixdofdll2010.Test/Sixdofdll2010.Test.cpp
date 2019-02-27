@@ -26,6 +26,13 @@ void PrintPosition(double* pos)
 	printf("X:%f;y:%f;z:%f\r\n", pos[0], pos[1], pos[2]);
 }
 
+void WashoutTest()
+{
+	int datacount = 8000;
+	WashOutFiltering(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	Sleep(47);
+}
+
 int main()
 {
 	PrintControlData(Control(0, 0, 0, 0, 0, 0));
@@ -38,12 +45,13 @@ int main()
 	PrintPosition(GetTopPosition(0));
 	PrintControlData(Control(0, 0, 0, 10, 0, 0));
 	double lengths[6] = {10,20,20,20,20,20};
+	void WashoutTest();
+	
 	auto poses = FromLengthToPose(lengths);
 	for (int i = 0;i < 6;++i)
 	{
 		printf("the %d poses is %f \r\n", i, poses[i]);
 	}
-	
 	double i = 0;
 	while (i < 3)
 	{

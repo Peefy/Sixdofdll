@@ -90,7 +90,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="Sixdofdll2010.lib" />
+    <Library Include="..\Release\Sixdofdll2010.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

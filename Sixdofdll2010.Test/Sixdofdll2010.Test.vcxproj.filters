@@ -40,6 +40,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="Sixdofdll2010.lib" />
+    <Library Include="..\Release\Sixdofdll2010.lib" />
   </ItemGroup>
 </Project>

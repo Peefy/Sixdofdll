@@ -294,7 +294,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	for (int i = 0; i < ACC_NUM; ++i)
 	{
 		ahigh[i] = accHighPassFilters[i].Update(a2[i]);
-		poses[i] = accIntZtrans[i].Update(ahigh[i]); //变成mm
+		poses[i] = accIntZtrans[i].Update(ahigh[i]) * 1000; //变成mm
 		flow[i] = accLowPassFilter[i].Update(fAA[i]);
 		betalow[i] = LIMITER(flow[i] * coor_turn_gain * 180.0 / pi, -ANGLE_VEL_UP_RANGE, +ANGLE_VEL_UP_RANGE);
 #if IS_ADD_COOR_TURN_GAIN
