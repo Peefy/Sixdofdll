@@ -272,13 +272,13 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 	BuildTsMatrix(yaw, roll, pitch);
 	double fAA[ACC_NUM] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};
 	double wAA[ANGLE_SPEED_NUM] = {rollSpeed * angleSpd_scale, pitchSpeed * angleSpd_scale, yawSpeed * angleSpd_scale};
-	double f2[ACC_NUM];
-	double flow[ACC_NUM];
-	double beta2[ANGLE_SPEED_NUM];
-	double betahigh[ANGLE_SPEED_NUM];
-	double betalow[ANGLE_SPEED_NUM];
-	double ahigh[ACC_NUM];
-	double betaS[ANGLE_SPEED_NUM];
+	double f2[ACC_NUM] = {0};
+	double flow[ACC_NUM] = {0};
+	double beta2[ANGLE_SPEED_NUM] = {0};
+	double betahigh[ANGLE_SPEED_NUM] = {0};
+	double betalow[ANGLE_SPEED_NUM] = {0};
+	double ahigh[ACC_NUM] = {0};
+	double betaS[ANGLE_SPEED_NUM] = {0};
 #if IS_USE_TRANS_MATRIX
 	MatrixMultiplyVector(LsMatrix, fAA, f2);  
 	MatrixMultiplyVector(TsMatrix, wAA, beta2);
