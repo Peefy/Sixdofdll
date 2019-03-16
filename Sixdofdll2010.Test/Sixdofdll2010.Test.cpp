@@ -52,7 +52,7 @@ void WashoutTest()
 			xacc, yacc, zacc, rollSpeed, yawSpeed, pitchSpeed);
 		memcpy(poses, tmp, sizeof(double) * 6);
 		printf("the %d poses is %f \r\n", i, poses[0]);
-		Sleep(5);
+		Sleep(47);
 	}
 	fin.close();
 }
