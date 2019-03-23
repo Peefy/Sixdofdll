@@ -32,7 +32,7 @@ void PrintPosition(double* pos)
 
 void WashoutTest()
 {
-	int datacount = 8000;
+	int datacount = 200;
 	double x, y, z, xacc, yacc, zacc, rollSpeed, pitchSpeed, yawSpeed, roll, pitch, yaw;
 	ifstream fin(FILENAME);
 	double poses[6] = {0};
@@ -69,8 +69,7 @@ int main()
 	PrintPosition(GetTopPosition(0));
 	PrintControlData(Control(0, 0, 0, 10, 0, 0));
 	double lengths[6] = {10,20,20,20,20,20};
-	WashoutTest();
-	
+		
 	auto poses = FromLengthToPose(lengths);
 	for (int i = 0;i < 6;++i)
 	{
@@ -84,6 +83,7 @@ int main()
 		PrintControlData(Control(0, 0, angle, 0, 0, 0));
 		Sleep(5);
 	}
+	WashoutTest();
 	getchar();
 	return 0;
 }
