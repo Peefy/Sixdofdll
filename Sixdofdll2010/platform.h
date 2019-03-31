@@ -35,13 +35,13 @@
 #define IS_USE_TRANS_MATRIX 1
 
 // 是否增加协调转弯
-#define IS_ADD_COOR_TURN_GAIN 0
+#define IS_ADD_COOR_TURN_GAIN 1
 
 // 加速度限幅
 #define ACC_UP_RANGE        (0.02 * EARTH_G) //单位 m/s^2 
 
 // 角速度限制幅度
-#define ANGLE_VEL_UP_RANGE  3 // m/s^2
+#define ANGLE_VEL_UP_RANGE  4.0 // m/s^2
 
 #define WASHOUT_FILTER_ORDER_PLUS_ONE 3
 
