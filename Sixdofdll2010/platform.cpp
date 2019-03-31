@@ -302,8 +302,11 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 #if IS_ADD_COOR_TURN_GAIN
 	betaS[0] += betalow[1];
 	betaS[1] += betalow[0];
+	betaS[2] += 0;
 #else
-
+	betaS[0] += 0;
+	betaS[1] += 0;
+	betaS[2] += 0;
 #endif	
 	memcpy(poses + ACC_NUM, betaS, sizeof(double) * ANGLE_SPEED_NUM);
 	return poses;
