@@ -41,7 +41,7 @@
 #define ACC_UP_RANGE        (0.02 * EARTH_G) //单位 m/s^2 
 
 // 角速度限制幅度
-#define ANGLE_VEL_UP_RANGE  4.0 // m/s^2
+#define ANGLE_VEL_UP_RANGE 8.0 // m/s^2
 
 #define WASHOUT_FILTER_ORDER_PLUS_ONE 3
 

@@ -267,7 +267,7 @@ double * Platform::WashOutFiltering(double x, double y, double z, double roll, d
 {
 	static double acc_scale = 0.01;
 	static double angleSpd_scale = 10.0;
-	static double coor_turn_gain = 1.0;
+	static double coor_turn_gain = 1.2;
 	BuildLsMatrix(yaw, roll, pitch);
 	BuildTsMatrix(yaw, roll, pitch);
 	double fAA[ACC_NUM] = {xacc * acc_scale, yacc * acc_scale, zacc * acc_scale};

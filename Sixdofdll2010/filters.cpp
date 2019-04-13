@@ -20,8 +20,8 @@ double RateLimiter(double dataIn, double risingSlewRate, double fallingSlewRate,
 	lastOut = out;
 	return dataIn;
 }
-
-int fac(int m)
+ 
+static int fac(int m)
 {
 	if (m == 1 || m == 0)
 	{
@@ -33,7 +33,7 @@ int fac(int m)
 	}
 }
 
-int comb(int m, int n)
+static int comb(int m, int n)
 {
 	if (n == 0 || n == m)   //取边界条件
 	{
