@@ -11,7 +11,7 @@ using namespace std;
 
 #define N 6
 #define EPSILON  0.0001
-#define ITER_MAX 1
+#define ITER_MAX 100
 
 const int N2 = 2 * N;
 
@@ -716,13 +716,6 @@ void ffjacobian(double xx[N], double yy[N][N])
 		cos(acosDownR/2.0 - pi/2.0) + UpR*
 		sin(acosUpR/2.0 - pi/6)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) + UpR*
 		cos(acosUpR/2.0 - pi/6)*cos(b)*cos(c)),2.0))));
-
-	double mu = 0.0002;
-	for (int i = 0;i < N;++i)
-	{
-		yy[i][i] += mu;
-	}
-
 }
 
 void inv_jacobian(double yy[N][N], double inv[N][N])

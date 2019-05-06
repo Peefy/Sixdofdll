@@ -68,7 +68,7 @@ int main()
 	PrintControlData(Control(0, -200, 0, 0, 0, 0));
 	PrintPosition(GetTopPosition(0));
 	PrintControlData(Control(0, 0, 0, 10, 0, 0));
-	double lengths[6] = {10,20,20,20,20,20};
+	double lengths[6] = {40, 30, 30, 30, 30, 40};
 		
 	auto poses = FromLengthToPose(lengths);
 	for (int i = 0;i < 6;++i)
