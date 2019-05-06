@@ -11,22 +11,22 @@ using namespace std;
 
 #define N 6
 #define EPSILON  0.0001
-#define ITER_MAX 100
+#define ITER_MAX 1000
 
 const int N2 = 2 * N;
 
-double UpZ = 100;
-double DownZ = 700;
-double UpR = 680;
-double DownR = 840;
-double Dis = 190;
+static double UpZ = 100;
+static double DownZ = 700; 
+static double UpR = 680;
+static double DownR = 840;
+static double Dis = 190;
 
-void ff(double xx[N], double yy[N],double dLen1, double dLen2, double dLen3, double dLen4, double dLen5, double dLen6);
-void ffjacobian(double xx[N], double yy[N][N]);
-void inv_jacobian(double yy[N][N], double inv[N][N]);
-void newdundiedai(double x0[N], double inv[N][N], double y0[N], double x1[N]);
+static void ff(double xx[N], double yy[N],double dLen1, double dLen2, double dLen3, double dLen4, double dLen5, double dLen6);
+static void ffjacobian(double xx[N], double yy[N][N]);
+static void inv_jacobian(double yy[N][N], double inv[N][N]);
+static void newdundiedai(double x0[N], double inv[N][N], double y0[N], double x1[N]);
 
-void ff(double xx[N], double yy[N], double dLen1, double dLen2, double dLen3, double dLen4, double dLen5, double dLen6)
+static void ff(double xx[N], double yy[N], double dLen1, double dLen2, double dLen3, double dLen4, double dLen5, double dLen6)
 {
 	double acosUpR = acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR));
 	double acosDownR = acos((Dis * Dis - 2.0 * DownR * DownR) / (2.0 * DownR * DownR));
@@ -118,10 +118,8 @@ void ff(double xx[N], double yy[N], double dLen1, double dLen2, double dLen3, do
 		(2.0 * DownR * DownR)) / 2.0 - pi / 2.0)), 2)));
 }
 
-void ffjacobian(double xx[N], double yy[N][N])
+static void ffjacobian(double xx[N], double yy[N][N])
 {
-
-
 	double acosUpR = acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR));
 	double acosDownR = acos((Dis * Dis - 2.0 * DownR * DownR) / (2.0 * DownR * DownR));
 	double acosDisUpR = acosUpR / 2.0 - pi / 6.0;
@@ -718,7 +716,7 @@ void ffjacobian(double xx[N], double yy[N][N])
 		cos(acosUpR/2.0 - pi/6)*cos(b)*cos(c)),2.0))));
 }
 
-void inv_jacobian(double yy[N][N], double inv[N][N])
+static void inv_jacobian(double yy[N][N], double inv[N][N])
 {
 	double aug[N][N2];
 	double L = 0;
@@ -773,7 +771,7 @@ void inv_jacobian(double yy[N][N], double inv[N][N])
 
 }
 
-void newdundiedai(double x0[N], double inv[N][N], double y0[N], double x1[N])
+static void newdundiedai(double x0[N], double inv[N][N], double y0[N], double x1[N])
 {
 	int i, j;
 	double sum = 0;
@@ -799,11 +797,13 @@ double* ForwardKinematics(double dLen1, double dLen2, double dLen3, double dLen4
 	UpR = circleTopRadius;
 	DownR = circleBottomRadius;
 	Dis = (distanceBetweenHingeTop + distanceBetweenHingeBottom) / 2.0;
-	double x0[N] = { 0, 0, 0, 0, 0, 0 };
-	double x1[N] = { 0, 0, 0, 0, 0, 0 };
-	double y0[N] = { 0, 0, 0, 0, 0, 0 };
-	double jacobian[N][N] = { { 0 },{ 0 },{ 0 },{ 0 },{ 0 },{ 0 } };
-	double invjacobian[N][N] = { { 0 },{ 0 },{ 0 },{ 0 },{ 0 },{ 0 } };
+	//double x0[N] = { 0.0001, -0.0001, 0.0001, -0.0001, 0.0001, -0.0001 };
+	//double x1[N] = { 0.0001, -0.0001, 0.0001, -0.0001, 0.0001, -0.0001 };
+	double x0[N] = { 0.21, -0.0, 0.0, -0.0, 0.0, -0.0 };
+	double x1[N]; //= { 0.0, -0.0, 0.0, -0.0, 0.0, -0.0 };
+	double y0[N] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	double jacobian[N][N] = { { 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 } };
+	double invjacobian[N][N] = { { 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 } };
 	double errornorm = 0;
 	int i, j, iter = 0;
 	do
