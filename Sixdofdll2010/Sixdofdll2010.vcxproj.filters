@@ -42,6 +42,12 @@
     <ClInclude Include="filters.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="cminpack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="minpack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -65,5 +71,8 @@
     <ClCompile Include="filters.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="cminpack_dll.lib" />
   </ItemGroup>
 </Project>

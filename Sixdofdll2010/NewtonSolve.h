@@ -2,7 +2,7 @@
 #ifndef _NEWTON_SOLVE_H_
 #define _NEWTON_SOLVE_H_
 
-double* ForwardKinematics(double dLen1, double dLen2, double dLen3, double dLen4, double dLen5, double dLen6, 
+double* ForwardKinematics(double dlen1, double dlen2, double dlen3, double dlen4, double dlen5, double dlen6, 
 						  double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
 						  double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom);
 
