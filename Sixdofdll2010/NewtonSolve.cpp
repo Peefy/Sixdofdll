@@ -14,6 +14,8 @@ using namespace std;
 #define EPSILON  0.0001
 #define ITER_MAX 1000
 
+#define IS_USE_CMINPACK 1
+
 const int N2 = 2 * N;
 
 static double UpZ = 100;
@@ -888,7 +890,41 @@ static void newdundiedai(double x0[N], double inv[N][N], double y0[N], double x1
 
 double result[N] = { 0, 0, 0, 0, 0, 0 };
 
-/*
+#if IS_USE_CMINPACK
+
+double wa[95] = { 0.0 };
+
+double* ForwardKinematics(double dlen1, double dlen2, double dlen3, double dlen4, double dlen5, double dlen6, 
+						  double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
+						  double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom) 
+{
+	dLen1 = dlen1;
+	dLen2 = dlen2;
+	dLen3 = dlen3;
+	dLen4 = dlen4;
+	dLen5 = dlen5;
+	dLen6 = dlen6;
+	UpZ = planeAboveHingeLength;
+	DownZ = planeAboveBottomLength;
+	UpR = circleTopRadius;
+	DownR = circleBottomRadius;
+	Dis = (distanceBetweenHingeTop + distanceBetweenHingeBottom) / 2.0;
+	double x0[N] = { 0.0, -0.0, 0.0, -0.0, 0.0, -0.0 };
+	double y0[N] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	double tol = EPSILON;
+	double jacobian[N][N] = { { 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 } };
+	double invjacobian[N][N] = { { 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 } };
+	double errornorm = 0;
+	int info = 0;
+	int n = N;
+	int lwa = 95;
+	hybrd1_(fcn, &n, x0, y0, &tol, &info, wa, &lwa);
+	memcpy(result, x0, sizeof(double) * N);
+	return result;
+}
+
+#else
+
 double* ForwardKinematics(double dlen1, double dlen2, double dlen3, double dlen4, double dlen5, double dlen6, 
 						  double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
 						  double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom) 
@@ -934,35 +970,6 @@ double* ForwardKinematics(double dlen1, double dlen2, double dlen3, double dlen4
 	memcpy(result, x1, sizeof(double) * N);
 	return result;
 }
-*/
 
-double wa[95] = {0};
+#endif
 
-double* ForwardKinematics(double dlen1, double dlen2, double dlen3, double dlen4, double dlen5, double dlen6, 
-						  double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
-						  double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom) 
-{
-	dLen1 = dlen1;
-	dLen2 = dlen2;
-	dLen3 = dlen3;
-	dLen4 = dlen4;
-	dLen5 = dlen5;
-	dLen6 = dlen6;
-	UpZ = planeAboveHingeLength;
-	DownZ = planeAboveBottomLength;
-	UpR = circleTopRadius;
-	DownR = circleBottomRadius;
-	Dis = (distanceBetweenHingeTop + distanceBetweenHingeBottom) / 2.0;
-	double x0[N] = { 0.0, -0.0, 0.0, -0.0, 0.0, -0.0 };
-	double y0[N] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-	double tol = EPSILON;
-	double jacobian[N][N] = { { 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 } };
-	double invjacobian[N][N] = { { 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 },{ 0.0 } };
-	double errornorm = 0;
-	int info = 0;
-	int n = N;
-	int lwa = 95;
-	hybrd1_(fcn, &n, x0, y0, &tol, &info, wa, &lwa);
-	memcpy(result, x0, sizeof(double) * N);
-	return result;
-}
