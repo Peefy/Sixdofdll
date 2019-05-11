@@ -107,7 +107,7 @@ SIXDOFDLL2010_API void SetPlatformPara(double planeAboveHingeLength, double plan
 
 
 /*
-设置 六自由度平台的洗出算法
+六自由度平台的洗出算法
 @para
 x : x轴的位移 mm
 y : y轴的位移 mm
