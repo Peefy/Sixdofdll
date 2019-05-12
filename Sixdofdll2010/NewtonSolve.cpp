@@ -22,7 +22,8 @@ static double UpZ = 100;
 static double DownZ = 700; 
 static double UpR = 680;
 static double DownR = 840;
-static double Dis = 190;
+static double DisUp = 190;
+static double DisDown = 190;
 static double dLen1 = 0;
 static double dLen2 = 0;
 static double dLen3 = 0;
@@ -37,15 +38,9 @@ static void newdundiedai(double x0[N], double inv[N][N], double y0[N], double x1
 
 void fcn (const int *n, const __minpack_real__ *xx, __minpack_real__ *yy, int *iflag )
 {
-	/*计算x和x处的函数.在fvec中返回此向量。*/
-	double acosUpR = acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR));
-	double acosDownR = acos((Dis * Dis - 2.0 * DownR * DownR) / (2.0 * DownR * DownR));
-	double acosDisUpR = acosUpR / 2.0 - pi / 6.0;
-	double acosDisDownR = acosDownR / 2.0 - pi / 2.0;
-	double cos_acosDisUpR = cos(acosDisUpR);
-	double sin_acosDisUpR = sin(acosDisUpR);
-	double cos_acosDisDownR = cos(acosDisDownR);
-	double sin_acosDisDownR = sin(acosDisDownR);
+	
+	double acosDisDownR = acos((DisDown * DisDown - 2.0*DownR*DownR)/(2.0*DownR*DownR))/2.0;
+	double acosDisUpR = acos((DisUp * DisUp - 2.0*UpR*UpR)/(2.0*UpR*UpR))/2.0;
 
 	double x = xx[0];
 	double y = xx[1];
@@ -54,7 +49,93 @@ void fcn (const int *n, const __minpack_real__ *xx, __minpack_real__ *yy, int *i
 	double b = xx[4];
 	double c = xx[5];
 
-	yy[0] = sqrt((pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) + DownR*sin(acos((Dis * Dis - 2.0 * DownR * DownR) /
+	yy[0] = sqrt((pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) + DownR*
+		sin(acosDisDownR - pi/2.0) + UpR*
+		sin(acosDisUpR - pi/6.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) + UpR*
+		cos(acosDisUpR - pi/6.0)*cos(b)*sin(c)), 2) + pow((UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) - x + DownR*
+		cos(acosDisDownR - pi/2.0) + UpR*
+		sin(acosDisUpR - pi/6.0)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) - UpR*
+		cos(acosDisUpR - pi/6.0)*cos(b)*cos(c)), 2) + pow((DownZ + z - UpZ*cos(a)*cos(b) - UpR*
+		cos(acosDisUpR - pi/6.0)*sin(b) + UpR*
+		sin(acosDisUpR - pi/6.0)*cos(b)*sin(a)), 2))) - dLen1 - sqrt((pow((UpR*
+		cos(acosDisUpR - pi/6.0) - DownR*
+		cos(acosDisDownR - pi/2.0)), 2) + (DownZ - UpZ) * (DownZ - UpZ) + pow((UpR*
+		sin(acosDisUpR - pi/6.0) + DownR*
+		sin(acosDisDownR - pi/2.0)), 2)));
+
+	yy[1] = sqrt((pow((UpZ*cos(a)*cos(b) - z - DownZ + UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0)*sin(b) + UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0)*cos(b)*sin(a)), 2.0) + pow((x - UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) + DownR*
+		sin(acosDisDownR - pi/3.0) + UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) + UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0)*cos(b)*cos(c)), 2.0) + pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) - DownR*
+		cos(acosDisDownR - pi/3.0) - UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) + UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0)*cos(b)*sin(c)), 2))) - dLen2 - sqrt(((DownZ - UpZ) * (DownZ - UpZ) + pow((UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0) + DownR*
+		sin(acosDisDownR - pi/3.0)), 2) + pow((UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0) + DownR*
+		cos(acosDisDownR - pi/3.0)), 2)));
+
+	yy[2] = sqrt((pow((UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) - x + DownR*
+		sin(acosDisDownR - (2.0*pi)/3.0) - UpR*
+		sin(acosDisUpR - pi/2.0)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) + UpR*
+		cos(acosDisUpR - pi/2.0)*cos(b)*cos(c)), 2) + pow((DownR*
+		cos(acosDisDownR - (2.0*pi)/3.0) - UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) - y + UpR*
+		sin(acosDisUpR - pi/2.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) + UpR*
+		cos(acosDisUpR - pi/2.0)*cos(b)*sin(c)), 2) + pow((DownZ + z - UpZ*cos(a)*cos(b) + UpR*
+		cos(acosDisUpR - pi/2.0)*sin(b) - UpR*
+		sin(acosDisUpR - pi/2.0)*cos(b)*sin(a)), 2))) - dLen3 - sqrt(((DownZ - UpZ) * (DownZ - UpZ) + pow((UpR*
+		cos(acosDisUpR - pi/2.0) + DownR*
+		sin(acosDisDownR - (2.0*pi)/3.0)), 2) + pow((UpR*
+		sin(acosDisUpR - pi/2.0) + DownR*
+		cos(acosDisDownR - (2.0*pi)/3.0)), 2)));
+
+	yy[3] = sqrt((pow((UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) - x + DownR*
+		sin(acosDisDownR - (2.0*pi)/3.0) + UpR*
+		sin(acosDisUpR - pi/2.0)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) + UpR*
+		cos(acosDisUpR - pi/2.0)*cos(b)*cos(c)), 2) + pow((DownZ + z - UpZ*cos(a)*cos(b) + UpR*
+		cos(acosDisUpR - pi/2.0)*sin(b) + UpR*
+		sin(acosDisUpR - pi/2.0)*cos(b)*sin(a)), 2) + pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) + DownR*
+		cos(acosDisDownR - (2.0*pi)/3.0) + UpR*
+		sin(acosDisUpR - pi/2.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) - UpR*
+		cos(acosDisUpR - pi/2.0)*cos(b)*sin(c)), 2))) - dLen4 - sqrt(((DownZ - UpZ) * (DownZ - UpZ) + pow((UpR*
+		cos(acosDisUpR - pi/2.0) + DownR*
+		sin(acosDisDownR - (2.0*pi)/3.0)), 2) + pow((UpR*
+		sin(acosDisUpR - pi/2.0) + DownR*
+		cos(acosDisDownR - (2.0*pi)/3.0)), 2)));
+
+	yy[4] = sqrt((pow((DownZ + z - UpZ*cos(a)*cos(b) - UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0)*sin(b) + UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0)*cos(b)*sin(a)), 2) + pow((x - UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) + DownR*
+		sin(acosDisDownR - pi/3.0) - UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) + UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0)*cos(b)*cos(c)), 2) + pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) + DownR*
+		cos(acosDisDownR - pi/3.0) + UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) + UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0)*cos(b)*sin(c)), 2))) - dLen5 - sqrt(((DownZ - UpZ) * (DownZ - UpZ) + pow((UpR*
+		cos(acosDisUpR - (5.0*pi)/6.0) + DownR*
+		sin(acosDisDownR - pi/3.0)), 2) + pow((UpR*
+		sin(acosDisUpR - (5.0*pi)/6.0) + DownR*
+		cos(acosDisDownR - pi/3.0)), 2)));
+
+	yy[5] = sqrt((pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) - DownR*
+		sin(acosDisDownR - pi/2.0) - UpR*
+		sin(acosDisUpR - pi/6.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) + UpR*
+		cos(acosDisUpR - pi/6.0)*cos(b)*sin(c)), 2) + pow((UpZ*cos(a)*cos(b) - z - DownZ + UpR*
+		cos(acosDisUpR - pi/6.0)*sin(b) + UpR*
+		sin(acosDisUpR - pi/6.0)*cos(b)*sin(a)), 2) + pow((x - UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) - DownR*
+		cos(acosDisDownR - pi/2.0) + UpR*
+		sin(acosDisUpR - pi/6.0)*(cos(a)*sin(c) - cos(c)*sin(a)*sin(b)) + UpR*
+		cos(acosDisUpR - pi/6.0)*cos(b)*cos(c)), 2))) - dLen6 - sqrt((pow((UpR*
+		cos(acosDisUpR - pi/6.0) - DownR*
+		cos(acosDisDownR - pi/2.0)), 2) + (DownZ - UpZ) * (DownZ - UpZ) + pow((UpR*
+		sin(acosDisUpR - pi/6.0) + DownR*
+		sin(acosDisDownR - pi/2.0)), 2)));
+
+	/*
+	auto Dis = (DisUp + DisDown) / 2.0;
+	yy[0] = sqrt((pow((y + UpZ*(cos(c)*sin(a) - cos(a)*sin(b)*sin(c)) + DownR*sin(acos((Dis * Dis - 2.0.0.0 * DownR * DownR) /
 		(2.0 * DownR * DownR)) / 2.0 - pi / 2.0) + UpR*sin(acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR)) /
 		2.0 - pi / 6.0)*(cos(a)*cos(c) + sin(a)*sin(b)*sin(c)) + UpR*cos(acos((Dis * Dis - 2.0 * UpR * UpR) /
 		(2.0 * UpR * UpR)) / 2.0 - pi / 6.0)*cos(b)*sin(c)), 2) + pow((UpZ*(sin(a)*sin(c) + cos(a)*cos(c)*sin(b)) - x +
@@ -126,10 +207,12 @@ void fcn (const int *n, const __minpack_real__ *xx, __minpack_real__ *yy, int *i
 		DownR*cos(acos((Dis * Dis - 2.0 * DownR * DownR) / (2.0 * DownR * DownR)) / 2.0 - pi / 2.0)), 2) + pow((DownZ - UpZ), 2) +
 		pow((UpR*sin(acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR)) / 2.0 - pi / 6.0) + DownR*sin(acos((Dis * Dis - 2.0 * DownR * DownR) /
 		(2.0 * DownR * DownR)) / 2.0 - pi / 2.0)), 2)));
+	*/
 }
 
 static void ff(double xx[N], double yy[N], double dLen1, double dLen2, double dLen3, double dLen4, double dLen5, double dLen6)
 {
+	auto Dis = (DisUp + DisDown) / 2.0;
 	double acosUpR = acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR));
 	double acosDownR = acos((Dis * Dis - 2.0 * DownR * DownR) / (2.0 * DownR * DownR));
 	double acosDisUpR = acosUpR / 2.0 - pi / 6.0;
@@ -222,6 +305,7 @@ static void ff(double xx[N], double yy[N], double dLen1, double dLen2, double dL
 
 static void ffjacobian(double xx[N], double yy[N][N])
 {
+	auto Dis = (DisUp + DisDown) / 2.0;
 	double acosUpR = acos((Dis * Dis - 2.0 * UpR * UpR) / (2.0 * UpR * UpR));
 	double acosDownR = acos((Dis * Dis - 2.0 * DownR * DownR) / (2.0 * DownR * DownR));
 	double acosDisUpR = acosUpR / 2.0 - pi / 6.0;
@@ -908,7 +992,8 @@ double* ForwardKinematics(double dlen1, double dlen2, double dlen3, double dlen4
 	DownZ = planeAboveBottomLength;
 	UpR = circleTopRadius;
 	DownR = circleBottomRadius;
-	Dis = (distanceBetweenHingeTop + distanceBetweenHingeBottom) / 2.0;
+	DisUp = distanceBetweenHingeTop;
+	DisDown = distanceBetweenHingeBottom;
 	double x0[N] = { 0.0, -0.0, 0.0, -0.0, 0.0, -0.0 };
 	double y0[N] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	double tol = EPSILON;
