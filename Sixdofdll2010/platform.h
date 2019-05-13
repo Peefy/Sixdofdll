@@ -43,6 +43,7 @@
 // 角速度限制幅度
 #define ANGLE_VEL_UP_RANGE 6.5 // m/s^2
 
+// 洗出算法滤波器阶数+1
 #define WASHOUT_FILTER_ORDER_PLUS_ONE 3
 
 // 三维坐标
@@ -127,11 +128,16 @@ public:
     double AxisInitLength[AXIS_COUNT];
 	// 平台六个缸的增量长度
     double AxisDeltaLength[AXIS_COUNT];
+	// 设置平台机械参数
 	void SetPlatformPara(double planeAboveHingeLength, double planeAboveBottomLength, double circleTopRadius, 
 		double circleBottomRadius, double distanceBetweenHingeTop, double distanceBetweenHingeBottom);
+	// 设置洗出滤波算法参数
 	void SetWashOutFilterPara(double hpfAccWn, double lpfAccWn, double hpfAngleSpdWn, double sampleTime);
+	// 运动学反解
     double* Control(double x, double y, double z, double roll, double yaw, double pitch);
+	// 运动学正解
     double* FromLengthToPose(double * lengths);
+	// 洗出滤波算法
 	double* WashOutFiltering(double x, double y, double z, double roll, double yaw, double pitch,
 		double xacc, double yacc, double zacc, double rollSpeed, double yawSpeed, double pitchSpeed);
 private:
@@ -150,9 +156,13 @@ private:
 	double PlaneAboveHingeLength;
 	// 上平面到下铰支座中心的垂直距离
 	double PlaneAboveBottomLength;
+	// 加速度高通滤波器截止频率
 	double HpfAccWn;
+	// 加速度低通滤波器截止频率
 	double LpfAccWn;
+	// 角速度高通滤波器截止频率
 	double HpfAngleSpdWn;
+	// 采样周期
 	double SampleTime;
 	void PlatformParaInit();
 	void WashOutFilterParaInit();
@@ -163,6 +173,7 @@ private:
 	void BuildLsMatrix(double yaw, double roll, double pitch);
     double CosineTheorem(double a, double b, double c);
 protected:
+	// 洗出算法滤波器
 	AccHighPassFilter accHighPassFilters[ACC_NUM];
 	AccIntZtrans accIntZtrans[ACC_NUM];
 	AccLowPassFilter accLowPassFilter[ACC_NUM];

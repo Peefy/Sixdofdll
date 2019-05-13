@@ -1,18 +1,18 @@
 #pragma once
 
+// 六自由度平台轴的个数
 #define AXIS_COUNT 6
-// 所有单位 毫米
-// Star Comming Para
 
-#define DIS_PER_R 5.36
-#define PULSE_PER_R 1280000
-#define LENGTH_TO_PULSE_SCALE PULSE_PER_R / DIS_PER_R
-
+// sin(30deg)
 #define SIN_30_DEG 0.5
+// cos(30deg)
 #define COS_30_DEG 0.86602540378
-
+// sin(60deg)
 #define SIN_60_DEG 0.86602540378
+// cos(60deg)
 #define COS_60_DEG 0.5
 
+// deg2rad(30)
 #define RAD_30 (30.0 / 180.0 * pi)
+// deg2rad(60)
 #define RAD_60 (60.0 / 180.0 * pi)
