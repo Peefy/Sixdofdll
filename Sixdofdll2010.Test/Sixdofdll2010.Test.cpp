@@ -7,6 +7,13 @@
 
 #include <fstream>
 
+#define PlaneAboveHingeLength       225.0
+#define PlaneAboveBottomLength      2130.0
+#define CircleTopRadius             880.7
+#define CircleBottomRadius          1519.0
+#define DistanceBetweenHingeTop     200.0
+#define DistanceBetweenHingeBottom  300.0
+
 #define DIS_PER_R 5.36
 #define PULSE_PER_R 1280000
 #define LENGTH_TO_PULSE_SCALE PULSE_PER_R / DIS_PER_R
@@ -59,6 +66,9 @@ void WashoutTest()
 
 int main()
 {
+	SetPlatformPara(PlaneAboveHingeLength, PlaneAboveBottomLength, 
+		CircleTopRadius, CircleBottomRadius, DistanceBetweenHingeTop,
+		DistanceBetweenHingeBottom);
 	PrintControlData(Control(0, 0, 0, 0, 0, 0));
 	PrintControlData(Control(0, 0, 200, 0, 0, 0));
 	PrintControlData(Control(0, 0, -200, 0, 0, 0));
@@ -79,8 +89,8 @@ int main()
 	while (i < 3)
 	{
 		i += 0.005;
-		auto angle = 30 * sin(i);
-		PrintControlData(Control(0, 0, angle, 0, 0, 0));
+		auto angle = 15 * sin(i);
+		PrintControlData(Control(0, 0, 0, angle, 0, 0));
 		Sleep(5);
 	}
 	WashoutTest();
