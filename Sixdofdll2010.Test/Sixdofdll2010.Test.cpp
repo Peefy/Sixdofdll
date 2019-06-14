@@ -8,15 +8,11 @@
 #include <fstream>
 
 #define PlaneAboveHingeLength       225.0
-#define PlaneAboveBottomLength      2130.0
+#define PlaneAboveBottomLength      2105.0
 #define CircleTopRadius             880.7
 #define CircleBottomRadius          1519.0
 #define DistanceBetweenHingeTop     200.0
 #define DistanceBetweenHingeBottom  300.0
-
-#define DIS_PER_R 5.36
-#define PULSE_PER_R 1280000
-#define LENGTH_TO_PULSE_SCALE PULSE_PER_R / DIS_PER_R
 
 #define FILENAME "illusiondata.txt"
 
@@ -26,7 +22,7 @@ void PrintControlData(double * length)
 {
 	if (length == NULL)
 		return;
-	printf("%2.3f %2.3f %2.3f %2.3f %2.3f %2.3f\r\n", length[0] * LENGTH_TO_PULSE_SCALE, length[1], length[2],
+	printf("%2.3f %2.3f %2.3f %2.3f %2.3f %2.3f\r\n", length[0], length[1], length[2],
 		length[3], length[4], length[5]);
 }
 
@@ -88,9 +84,9 @@ int main()
 	double i = 0; 
 	while (i < 3)
 	{
-		i += 0.005;
-		auto angle = 15 * sin(i);
-		PrintControlData(Control(0, 0, 0, angle, 0, 0));
+		i += 0.003;
+		auto angle = 250 * sin(i);
+		PrintControlData(Control(0, 0, angle, 0, 0, 0));
 		Sleep(5);
 	}
 	WashoutTest();
