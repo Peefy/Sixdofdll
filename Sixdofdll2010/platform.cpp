@@ -30,7 +30,7 @@ void Platform::SetPlatformPara(double planeAboveHingeLength, double planeAboveBo
 	CircleTopRadius = circleTopRadius;
 	CircleBottomRadius = circleBottomRadius;
 	DistanceBetweenHingeTop = distanceBetweenHingeTop;
-	distanceBetweenHingeBottom = distanceBetweenHingeBottom;
+	DistanceBetweenHingeBottom = distanceBetweenHingeBottom;
 	PositonsInit();
 	AxisInit();
 }
